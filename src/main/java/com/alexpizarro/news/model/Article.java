@@ -1,6 +1,18 @@
 package com.alexpizarro.news.model;
 
+import java.util.Objects;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Article {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String author;
     private String title;
     private String description;
@@ -12,6 +24,21 @@ public class Article {
     public Article() {
     }
 
+
+    //Override functions:
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Article article = (Article) o;
+        return Objects.equals(author, article.author) && Objects.equals(title, article.title) && Objects.equals(description, article.description) && Objects.equals(url, article.url) && Objects.equals(urlToImage, article.urlToImage) && Objects.equals(publishedAt, article.publishedAt) && Objects.equals(content, article.content);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(author, title, description, url, urlToImage, publishedAt, content);
+    }
+
+    //Getters & Setters
     public String getAuthor() {
         return author;
     }

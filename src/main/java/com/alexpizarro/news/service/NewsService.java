@@ -2,10 +2,9 @@ package com.alexpizarro.news.service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Map;
-
-import com.alexpizarro.news.model.Article;
+import java.util.HashMap;
 import org.springframework.stereotype.Service;
+import org.springframework. context.annotation.Bean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestClient;
 import com.alexpizarro.news.model.NewsResponse;
@@ -18,7 +17,13 @@ public class NewsService {
     @Value("${news.api.key}")
     private String apiKey;
     private String url;
-    private Map<String, NewsResponse> responses;
+    private HashMap<String, String> queries = new HashMap<>();
+    private int queryCount;
+    private final RestClient restClient;
+
+    public NewsService(RestClient restClient){
+        this.restClient = restClient;
+    }
 
     public NewsResponse fetchNews(String country, String keywords, String category){
 
@@ -26,7 +31,7 @@ public class NewsService {
          * Pulls top stories according the given arguments.
          */
 
-        url = "https://newsapi.org/v2/top-headlines?";
+        url = "https://newsapi.org/v2/top-headlines";
 
         //Create URI from the given arguments.
         URI link = UriComponentsBuilder.fromUriString(url)
@@ -37,8 +42,16 @@ public class NewsService {
                 .build()
                 .toUri();
 
-        //Start restClient
-        RestClient restClient = RestClient.create();
+        //Check created query to make sure the query hasn't already been made.
+        String storedLink = link.toString();
+
+        if (!(queries.containsValue(storedLink))){
+            queries.put("Query:", storedLink);
+        }
+        else{
+            //If query has already been made, immediately return to ignore calling the API.
+            return null;
+        }
 
         //Send GET to NewsAPI to pull requested news.
         NewsResponse response = restClient.get()
@@ -47,13 +60,6 @@ public class NewsService {
                 .body(NewsResponse.class);
 
         return response;
-    }
-
-    public Article pullArticle(NewsResponse response){
-        /**
-         * Returns the list of articles from a given NewsResponse response.
-          */
-
     }
 }
 
