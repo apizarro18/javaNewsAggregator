@@ -1,26 +1,59 @@
 package com.alexpizarro.news.service;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Map;
+
+import com.alexpizarro.news.model.Article;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestClient;
 import com.alexpizarro.news.model.NewsResponse;
+import com.alexpizarro.news.model.Article;
+import org.springframework.web.util.UriComponentsBuilder;
+
 
 @Service
 public class NewsService {
     @Value("${news.api.key}")
     private String apiKey;
+    private String url;
+    private Map<String, NewsResponse> responses;
 
-    public NewsResponse getTopHeadlines(){
-        //Build restTemplate to make requests
-        RestTemplate restTemplate = new RestTemplate();
+    public NewsResponse fetchNews(String country, String keywords, String category){
 
-        //Define URL
-        String url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=" + apiKey;
+        /**
+         * Pulls top stories according the given arguments.
+         */
 
-        NewsResponse response = restTemplate.getForObject(url, NewsResponse.class);
+        url = "https://newsapi.org/v2/top-headlines?";
+
+        //Create URI from the given arguments.
+        URI link = UriComponentsBuilder.fromUriString(url)
+                .queryParam("country", country)
+                .queryParam("q", keywords)
+                .queryParam("category", category)
+                .queryParam("apiKey", apiKey)
+                .build()
+                .toUri();
+
+        //Start restClient
+        RestClient restClient = RestClient.create();
+
+        //Send GET to NewsAPI to pull requested news.
+        NewsResponse response = restClient.get()
+                .uri(link)
+                .retrieve()
+                .body(NewsResponse.class);
+
         return response;
     }
 
-    public NewsResponse get
+    public Article pullArticle(NewsResponse response){
+        /**
+         * Returns the list of articles from a given NewsResponse response.
+          */
+
+    }
 }
 
