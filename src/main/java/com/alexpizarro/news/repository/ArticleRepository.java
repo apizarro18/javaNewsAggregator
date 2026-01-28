@@ -8,11 +8,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
+
+    //Does the Article exist?
     boolean existsByUrl(String url);
 
-    default void addUniqueArticle(Article article){
-        if (!existsByUrl(article.getUrl())){
-            save(article);
-        }
-    }
+    //Return the Article
+    Article findArticleByTitle(String title);
+    Article findArticleByUrl(String url);
+
+    //Delete the Article
+    void deleteByUrl(String url);
 }

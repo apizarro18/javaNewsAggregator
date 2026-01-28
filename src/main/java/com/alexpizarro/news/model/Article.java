@@ -1,10 +1,13 @@
 package com.alexpizarro.news.model;
 
+
+import com.alexpizarro.news.model.Query;
 import java.util.Objects;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.AccessLevel;
+
 
 @Entity
 public class Article {
@@ -13,17 +16,42 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "query_id")
+    @Getter
+    @Setter
+    private Query query;
+
+    @Getter
+    @Setter
     private String author;
+
+    @Getter
+    @Setter
     private String title;
+
+    @Getter
+    @Setter
     private String description;
+
+    @Getter
+    @Setter
     private String url;
+
+    @Getter
+    @Setter
     private String urlToImage;
+
+    @Getter
+    @Setter
     private String publishedAt;
+
+    @Getter
+    @Setter
     private String content;
 
     public Article() {
     }
-
 
     //Override functions:
     @Override
@@ -36,63 +64,6 @@ public class Article {
     @Override
     public int hashCode() {
         return Objects.hash(author, title, description, url, urlToImage, publishedAt, content);
-    }
-
-    //Getters & Setters
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getUrlToImage() {
-        return urlToImage;
-    }
-
-    public void setUrlToImage(String urlToImage) {
-        this.urlToImage = urlToImage;
-    }
-
-    public String getPublishedAt() {
-        return publishedAt;
-    }
-
-    public void setPublishedAt(String publishedAt) {
-        this.publishedAt = publishedAt;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 }
 
