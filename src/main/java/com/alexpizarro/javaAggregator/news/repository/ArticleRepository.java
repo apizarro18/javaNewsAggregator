@@ -1,7 +1,6 @@
-package com.alexpizarro.news.repository;
+package com.alexpizarro.javaAggregator.news.repository;
 
-import com.alexpizarro.news.model.Article;
-import com.alexpizarro.news.model.NewsResponse;
+import com.alexpizarro.javaAggregator.news.model.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

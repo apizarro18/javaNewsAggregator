@@ -1,4 +1,4 @@
-package com.alexpizarro.news.model;
+package com.alexpizarro.javaAggregator.news.model;
 
 import java.util.List;
 

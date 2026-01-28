@@ -1,7 +1,7 @@
-package com.alexpizarro.news.repository;
+package com.alexpizarro.javaAggregator.news.repository;
 
-import com.alexpizarro.news.model.Article;
-import com.alexpizarro.news.model.Query;
+import com.alexpizarro.javaAggregator.news.model.Article;
+import com.alexpizarro.javaAggregator.news.model.Query;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.net.URI;
 import java.util.List;

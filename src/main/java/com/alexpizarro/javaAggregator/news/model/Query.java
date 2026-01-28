@@ -1,13 +1,11 @@
-package com.alexpizarro.news.model;
+package com.alexpizarro.javaAggregator.news.model;
 
 import java.net.URI;
-import java.util.Objects;
 import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.AccessLevel;
 
 @Entity
 public class Query {

@@ -1,20 +1,16 @@
-package com.alexpizarro.news.service;
+package com.alexpizarro.javaAggregator.news.service;
 
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
-import com.alexpizarro.news.model.Query;
-import com.alexpizarro.news.repository.ArticleRepository;
-import com.alexpizarro.news.repository.QueryRepository;
+import com.alexpizarro.javaAggregator.news.model.Query;
+import com.alexpizarro.javaAggregator.news.repository.ArticleRepository;
+import com.alexpizarro.javaAggregator.news.repository.QueryRepository;
 import org.springframework.stereotype.Service;
-import org.springframework. context.annotation.Bean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestClient;
-import com.alexpizarro.news.model.NewsResponse;
-import com.alexpizarro.news.model.Article;
+import com.alexpizarro.javaAggregator.news.model.NewsResponse;
+import com.alexpizarro.javaAggregator.news.model.Article;
 import org.springframework.web.util.UriComponentsBuilder;
 
 

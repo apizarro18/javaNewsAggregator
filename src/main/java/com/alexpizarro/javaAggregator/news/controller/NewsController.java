@@ -1,7 +1,7 @@
-package com.alexpizarro.news.controller;
+package com.alexpizarro.javaAggregator.news.controller;
 
-import com.alexpizarro.news.model.NewsResponse;
-import com.alexpizarro.news.service.NewsService;
+import com.alexpizarro.javaAggregator.news.model.NewsResponse;
+import com.alexpizarro.javaAggregator.news.service.NewsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +13,11 @@ public class NewsController {
 
     public NewsController(NewsService newsService){
         this.newsService = newsService;
+    }
+
+    @GetMapping("/hello")
+    public String sayHello(){
+        return "Spring boot is finally working! You're live.";
     }
 
     @GetMapping("/api/news")

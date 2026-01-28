@@ -1,4 +1,4 @@
-package com.alexpizarro.news.config;
+package com.alexpizarro.javaAggregator.news.config;
 
 import org.springframework. context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
