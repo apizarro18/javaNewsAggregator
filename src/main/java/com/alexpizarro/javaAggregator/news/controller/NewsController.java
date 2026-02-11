@@ -2,12 +2,14 @@ package com.alexpizarro.javaAggregator.news.controller;
 
 import com.alexpizarro.javaAggregator.news.model.NewsResponse;
 import com.alexpizarro.javaAggregator.news.service.NewsService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
+@CrossOrigin(origins= "http://localhost:5173")
 public class NewsController {
     private final NewsService newsService;
 
