@@ -4,21 +4,19 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
-
   //JS Section
 
-  function Welcome(username){
-    return <div>Welcome {username}!</div>
+  function Welcome(props){
+
+    if (loggedIn == true){
+      return <div>Welcome {props.username}!</div>
+    }
+    else{
+      return <div>Please log in!</div>
+    }
   }
 
-  function SaveInput(){
-    const inputField = document.getElementById("username-input")
-    const enteredName = inputField.value
-    setUsername(enteredName)
-  }
-
+  const [loggedIn, setStatus] = useState(false)
   const [username, setUsername] = useState("")
 
   //JSX Markup
@@ -26,10 +24,10 @@ function App() {
     <>
       <label>
         Enter your username: 
-        <input type="text" id="username-input"></input>
-
-
+        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)}></input>
       </label>
+      <button onClick={() => setStatus(true)}>Save</button>
+      <Welcome username={username}/>
     </>
   )
 }
