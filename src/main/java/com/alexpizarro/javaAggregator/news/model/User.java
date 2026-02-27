@@ -1,12 +1,12 @@
 package com.alexpizarro.javaAggregator.news.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name= "app_users")
 public class User {
 
     @Id
@@ -15,10 +15,18 @@ public class User {
 
     @Setter
     @Getter
+    @NotBlank(message = "Username cannot be empty!")
     private String username;
 
     @Setter
     @Getter
+    @Email(message = "Please provide a valid email address.")
+    @NotBlank(message = "Email is required.")
+    private String email;
+
+    @Setter
+    @Getter
+    @NotBlank(message = "Password cannot be empty!")
     private String password;
 
 
