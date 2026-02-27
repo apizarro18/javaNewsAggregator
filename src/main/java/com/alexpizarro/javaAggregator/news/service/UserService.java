@@ -30,6 +30,9 @@ public class UserService {
         if(userRepository.existsByUsername(user.getUsername())){
             throw new RuntimeException("Username has been taken!");
         }
+        if(userRepository.existsByEmail(user.getEmail())){
+            throw new RuntimeException("Email is in use!");
+        }
 
         String encodedPassword = hashPassword(user);
         user.setPassword(encodedPassword);
