@@ -1,22 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import Welcome from './components/Welcome'
-import Login from './components/Login'
-import './App.css'
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './index.css';
+import SignUp from './components/SignUp';
+import Login from './components/Login';
+import Welcome from './components/Welcome';
 
 function App() {
-  //JS Section
-
-  const [isVisible, setisVisible] = useState(true)
-
-  //JSX Markup
   return (
-    <>  
-
-    <Login></Login>
-
-    </>
+    <Router>
+      <Routes>
+        <Route path="/Home" element={<Home />}/>
+        <Route path="/SignUp" element={<Login/>}/>
+        <Route path="/Login" element={<Login/>}/>
+      </Routes>
+    </Router>
   )
 }
 
