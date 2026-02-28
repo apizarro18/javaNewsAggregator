@@ -20,6 +20,16 @@ public class User {
 
     @Setter
     @Getter
+    @NotBlank(message = "Name cannot be left blank!")
+    private String firstName;
+
+    @Setter
+    @Getter
+    @NotBlank(message = "Last name cannot be left blank!")
+    private String lastName;
+
+    @Setter
+    @Getter
     @Email(message = "Please provide a valid email address.")
     @NotBlank(message = "Email is required.")
     private String email;

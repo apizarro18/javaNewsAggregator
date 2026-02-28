@@ -36,8 +36,6 @@ public class NewsController {
         return errors;
     }
 
-
-
     @GetMapping("/hello")
     public String sayHello(){
         return "Spring boot is finally working! You're live.";

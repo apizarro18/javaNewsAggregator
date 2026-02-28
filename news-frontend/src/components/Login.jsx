@@ -37,49 +37,49 @@ function Login(){
         <>
 
         <div className="input-group">
-        <>
-        {isVisible&&(
-        <div className="input-fields">
-            <label>
-                Enter your email:
-                <input 
-                    type="text" 
-                    value={email} 
-                    className={errors.email ? "error-border": ""}
-                    onChange={(e) => setEmail(e.target.value)}>
-                </input>
-                {errors.email && <span className="error-msg">{errors.email}</span>}
-            </label>
+            <>
+            {isVisible&&(
+            <div className="input-fields">
+                <label>
+                    Enter your email:
+                    <input 
+                        type="text" 
+                        value={email} 
+                        className={errors.email ? "error-border": ""}
+                        onChange={(e) => setEmail(e.target.value)}>
+                    </input>
+                    {errors.email && <span className="error-msg">{errors.email}</span>}
+                </label>
 
-            <label>
-                Enter your username:
-                <input 
-                    type="text" 
-                    value={username} 
-                    className={errors.username ? "error-border": ""}
-                    onChange={(e) => setUsername(e.target.value)}>
-                </input>
-                {errors.username && <span className="error-msg">{errors.username}</span>}
-            </label>
+                <label>
+                    Enter your username:
+                    <input 
+                        type="text" 
+                        value={username} 
+                        className={errors.username ? "error-border": ""}
+                        onChange={(e) => setUsername(e.target.value)}>
+                    </input>
+                    {errors.username && <span className="error-msg">{errors.username}</span>}
+                </label>
 
-            <label>
-                Enter your password:
-                <input 
-                    type="text" 
-                    value={password} 
-                    className={errors.password ? "error-border": ""}
-                    onChange={(e) => setPassword(e.target.value)}>
-                </input>
-                {errors.password && <span className="error-msg">{errors.password}</span>}
-            </label>
-        </div>
-        )}
-        </>
+                <label>
+                    Enter your password:
+                    <input 
+                        type="text" 
+                        value={password} 
+                        className={errors.password ? "error-border": ""}
+                        onChange={(e) => setPassword(e.target.value)}>
+                    </input>
+                    {errors.password && <span className="error-msg">{errors.password}</span>}
+                </label>
+            </div>
+            )}
+            </>
         </div>
 
         <div className="button&message">
             {isVisible&& (
-            <button type="submit" onClick={HandleSignup}>
+            <button type="submit" className="bg-blue-500 text-white font-bold p-4 rounded-full" onClick={HandleSignup}>
                 Sign Up!
             </button>
             )}
