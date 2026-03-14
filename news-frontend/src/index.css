@@ -10,4 +10,5 @@
 @theme{
   --color-page-bg: #fffff;
   --color-main-text: #1a1a1a;
+  --font-family-sans: 'Satoshi', system-ui, -apple-system, sans-serif;
 }

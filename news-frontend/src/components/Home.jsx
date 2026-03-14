@@ -7,7 +7,7 @@ function Home(){
 
 
     return(
-        <div> 
+        <div>
             <h1>
                 Newspapers are soooo 1950s. Time for an upgrade.
             </h1>
@@ -15,3 +15,5 @@ function Home(){
         </div>
     )
 }
+
+export default Home;

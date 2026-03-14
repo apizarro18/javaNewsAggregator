@@ -1,4 +1,4 @@
-  function Welcome(props){
+function Welcome(props){
 
     if (props.isVisible == false){
       return <div>Welcome {props.username}!</div>
