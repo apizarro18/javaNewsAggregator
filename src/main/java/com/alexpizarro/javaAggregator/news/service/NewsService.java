@@ -39,7 +39,6 @@ public class NewsService {
      * the function returns null.
      */
     public NewsResponse fetchNews(String country, String keywords, String category){
-
         url = "https://newsapi.org/v2/top-headlines";
         URI link = UriComponentsBuilder.fromUriString(url)
                 .queryParam("country", country)
@@ -55,11 +54,6 @@ public class NewsService {
             List<Article> cachedArticles = cachedQuery.getArticles();
             NewsResponse cachedResponse = convertToResponse(cachedArticles);
             return cachedResponse;
-        }
-        else{
-            Query newQuery = new Query();
-            newQuery.setUri(link);
-            addUniqueQuery(newQuery);
         }
 
         //2. Prepare new Query.

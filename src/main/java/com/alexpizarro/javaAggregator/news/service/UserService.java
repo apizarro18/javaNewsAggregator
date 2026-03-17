@@ -1,19 +1,28 @@
 package com.alexpizarro.javaAggregator.news.service;
 import com.alexpizarro.javaAggregator.news.model.User;
 import com.alexpizarro.javaAggregator.news.repository.UserRepository;
+import com.alexpizarro.javaAggregator.news.model.Topic;
+import com.alexpizarro.javaAggregator.news.repository.TopicRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final TopicRepository topicRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder){
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, TopicRepository topicRepository){
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.topicRepository = topicRepository;
     }
+
+    //USER CREATION
 
     private String hashPassword(User user){
         String encodedPassword = passwordEncoder.encode(user.getPassword());
@@ -40,5 +49,46 @@ public class UserService {
         return userRepository.save(user);
 
     }
+
+
+    //USER <-> TOPIC INTERACTION
+
+    @Transactional
+    public void followTopic(Long userID, String topicName){
+
+        User selectedUser;
+        Topic selectedTopic;
+
+        //1. Get User from UserRepository
+        Optional<User> findUser = userRepository.findById(userID);
+        if(findUser.isEmpty()){
+            throw new RuntimeException("User not found!");
+        }
+        else{
+            selectedUser = findUser.get();
+        }
+
+        //2. Get Topic
+        Optional<Topic> findTopic = topicRepository.findByTopicName(topicName);
+        if(findTopic.isEmpty()){
+            Topic newTopic = new Topic();
+            newTopic.setTopicName(topicName);
+            selectedTopic = topicRepository.save(newTopic);
+        }
+        else{
+            selectedTopic = findTopic.get();
+        }
+
+        //3. Add Topic to User's set.
+        selectedUser.addTopic(selectedTopic);
+
+        //4. Add User to Topic's set.
+        selectedTopic.addUser(selectedUser);
+
+        //5. Save the User
+        userRepository.save(selectedUser);
+    }
+
+
 
 }

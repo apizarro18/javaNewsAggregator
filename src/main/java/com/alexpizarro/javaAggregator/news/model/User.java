@@ -4,6 +4,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.Set;
+
 
 @Entity
 @Table(name= "app_users")
@@ -39,5 +41,18 @@ public class User {
     @NotBlank(message = "Password cannot be empty!")
     private String password;
 
+    @Setter
+    @Getter
+    @ManyToMany
+    @JoinTable(
+            name="user_topics",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="topic_id")
+    )
+    private Set<Topic> followedTopics;
+
+    public void addTopic (Topic topic){
+        this.followedTopics.add(topic);
+    }
 
 }
