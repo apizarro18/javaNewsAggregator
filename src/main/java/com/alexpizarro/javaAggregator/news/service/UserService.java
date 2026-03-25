@@ -3,15 +3,18 @@ import com.alexpizarro.javaAggregator.news.model.User;
 import com.alexpizarro.javaAggregator.news.repository.UserRepository;
 import com.alexpizarro.javaAggregator.news.model.Topic;
 import com.alexpizarro.javaAggregator.news.repository.TopicRepository;
+import io.jsonwebtoken.security.Keys;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import io.jsonwebtoken.Jwts;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Service
 public class UserService {
-
+    private final String SECRET_KEY = "d038981187f4f1c7d7a54031b408505b2f1962cb5c52969d3ba66dec138302bd";
     private final UserRepository userRepository;
     private final TopicRepository topicRepository;
     private final BCryptPasswordEncoder passwordEncoder;
@@ -50,6 +53,15 @@ public class UserService {
 
     }
 
+    //USER TOKENS
+    public String generateToken(String username){
+        return Jwts.builder()
+                .subject(username)
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
+                .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()))
+                .compact();
+    }
 
     //USER <-> TOPIC INTERACTION
 
