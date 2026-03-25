@@ -1,9 +1,12 @@
 package com.alexpizarro.javaAggregator.news.controller;
 
+import com.alexpizarro.javaAggregator.news.model.AuthResponse;
+import com.alexpizarro.javaAggregator.news.model.LoginRequest;
 import com.alexpizarro.javaAggregator.news.model.NewsResponse;
 import com.alexpizarro.javaAggregator.news.model.User;
 import com.alexpizarro.javaAggregator.news.service.NewsService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -36,9 +39,17 @@ public class NewsController {
         return errors;
     }
 
-    @GetMapping("/hello")
-    public String sayHello(){
-        return "Spring boot is finally working! You're live.";
+    @PostMapping("/api/auth/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
+        boolean valid = userService.verifyUser(loginRequest.getPassword(), loginRequest.getUsername());
+
+        if(valid){
+            String token = userService.generateToken(loginRequest.getUsername());
+            return ResponseEntity.ok(new AuthResponse(token));
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        }
     }
 
     @PostMapping("/api/users")
