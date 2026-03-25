@@ -13,7 +13,7 @@ function SignUp(){
     const[isSignUp, setIsSignUp] = useState(true); // true for sign up, false for sign in
     const navigate = useNavigate()
     const videoRef = useRef(null);
-
+    
     useEffect(() => {
         if (videoRef.current) {
             videoRef.current.playbackRate = 0.75; // Set to 0.75 speed (75% of normal speed)
