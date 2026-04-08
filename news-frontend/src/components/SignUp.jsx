@@ -30,6 +30,8 @@ function SignUp(){
         });
 
         if (response.ok){
+            const data = await response.json()
+            localStorage.setItem('token', data.token);
             navigate('/home');
         }
         else{
@@ -49,6 +51,8 @@ function SignUp(){
         });
 
         if (response.ok){
+            const data = await response.json();
+            localStorage.setItem('token', data.token);
             navigate('/home');
         }
         else{

@@ -46,11 +46,11 @@ public class UserService {
             throw new RuntimeException("Email is in use!");
         }
 
+        //Password is hashed prior to saving to DB.
         String encodedPassword = hashPassword(user);
         user.setPassword(encodedPassword);
 
         return userRepository.save(user);
-
     }
 
     //USER TOKENS

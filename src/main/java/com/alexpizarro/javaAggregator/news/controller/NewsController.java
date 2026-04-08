@@ -48,14 +48,28 @@ public class NewsController {
             return ResponseEntity.ok(new AuthResponse(token));
         }
         else{
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Invalid Credentials"));
         }
     }
 
     @PostMapping("/api/users")
-    public User createUser(@Valid @RequestBody User user){
+    public ResponseEntity<?> createUser(@Valid @RequestBody User user){
+        //Debug Line to test that users are getting created
         System.out.println("Creating user: " + user.getUsername());
-        return userService.saveUser(user);
+
+        //Save plaintext password to pass it to Login.
+        String plaintextPassword = user.getPassword();
+
+        //User is saved to NeonDB database.
+        userService.saveUser(user);
+
+        //Users are automatically logged in, so we create a login request and send it to Login().
+        LoginRequest autoLogin = new LoginRequest();
+        autoLogin.setPassword(plaintextPassword);
+        autoLogin.setUsername(user.getUsername());
+        ResponseEntity<?> response = login(autoLogin);
+
+        return response;
     }
 
     @GetMapping("/api/news")
