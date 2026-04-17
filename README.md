@@ -1,6 +1,6 @@
 📰 Java News Aggregator
 
-Full-Stack Sentiment News Explorer
+Full-Stack News Explorer
 
 A full-stack application built during my Junior year to aggregate, filter, and display global news. This project bridges a Spring Boot backend with a React + Tailwind frontend, focusing on secure user authentication and clean API integration.
 
