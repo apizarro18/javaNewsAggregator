@@ -15,12 +15,13 @@ import java.util.Optional;
 @Service
 public class UserService {
     @Value("${jwt.secret.key}")
-    private String SECRET_KEY;
+    private final String secretKey;
     private final UserRepository userRepository;
     private final TopicRepository topicRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, TopicRepository topicRepository){
+    public UserService(String secretKey, UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, TopicRepository topicRepository){
+        this.secretKey = secretKey;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.topicRepository = topicRepository;
@@ -60,7 +61,7 @@ public class UserService {
                 .subject(username)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
-                .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()))
+                .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()))
                 .compact();
     }
 
