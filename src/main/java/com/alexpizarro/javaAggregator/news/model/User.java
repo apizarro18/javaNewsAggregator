@@ -4,6 +4,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -49,7 +51,7 @@ public class User {
             joinColumns = @JoinColumn(name="user_id"),
             inverseJoinColumns = @JoinColumn(name="topic_id")
     )
-    private Set<Topic> followedTopics;
+    private Set<Topic> followedTopics = new HashSet<>();
 
     public void addTopic (Topic topic){
         this.followedTopics.add(topic);

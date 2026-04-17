@@ -2,6 +2,8 @@ package com.alexpizarro.javaAggregator.news.model;
 import lombok.Getter;
 import lombok.Setter;
 import jakarta.persistence.*;
+
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -20,7 +22,7 @@ public class Topic {
     @Setter
     @Getter
     @ManyToMany(mappedBy = "followedTopics")
-    private Set<User> followedByUsers;
+    private Set<User> followedByUsers = new HashSet<>();
 
     public void addUser(User user){
         this.followedByUsers.add(user);

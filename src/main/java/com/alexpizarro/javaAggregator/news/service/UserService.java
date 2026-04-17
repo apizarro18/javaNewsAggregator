@@ -5,16 +5,17 @@ import com.alexpizarro.javaAggregator.news.model.Topic;
 import com.alexpizarro.javaAggregator.news.repository.TopicRepository;
 import io.jsonwebtoken.security.Keys;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import io.jsonwebtoken.Jwts;
-
 import java.util.Date;
 import java.util.Optional;
 
 @Service
 public class UserService {
-    private final String SECRET_KEY = "d038981187f4f1c7d7a54031b408505b2f1962cb5c52969d3ba66dec138302bd";
+    @Value("${jwt.secret.key}")
+    private String SECRET_KEY;
     private final UserRepository userRepository;
     private final TopicRepository topicRepository;
     private final BCryptPasswordEncoder passwordEncoder;
@@ -71,6 +72,11 @@ public class UserService {
         User selectedUser;
         Topic selectedTopic;
 
+        //Check to see if topic is not null!
+        if (topicName == null || topicName.isEmpty()) {
+            throw new RuntimeException("Topic is empty/null!");
+        }
+
         //1. Get User from UserRepository
         Optional<User> findUser = userRepository.findById(userID);
         if(findUser.isEmpty()){
@@ -94,10 +100,7 @@ public class UserService {
         //3. Add Topic to User's set.
         selectedUser.addTopic(selectedTopic);
 
-        //4. Add User to Topic's set.
-        selectedTopic.addUser(selectedUser);
-
-        //5. Save the User
+        //4. Save the User
         userRepository.save(selectedUser);
     }
 

@@ -6,6 +6,7 @@ import com.alexpizarro.javaAggregator.news.model.NewsResponse;
 import com.alexpizarro.javaAggregator.news.model.User;
 import com.alexpizarro.javaAggregator.news.service.NewsService;
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -52,11 +53,9 @@ public class NewsController {
         }
     }
 
+    //User Creation
     @PostMapping("/api/users")
     public ResponseEntity<?> createUser(@Valid @RequestBody User user){
-        //Debug Line to test that users are getting created
-        System.out.println("Creating user: " + user.getUsername());
-
         //Save plaintext password to pass it to Login.
         String plaintextPassword = user.getPassword();
 
@@ -70,6 +69,20 @@ public class NewsController {
         ResponseEntity<?> response = login(autoLogin);
 
         return response;
+    }
+
+    //User Following Topics
+    @PostMapping("/api/users/{id}/topics")
+    public ResponseEntity<?> followTopic(@PathVariable Long id, @RequestBody Map<String, String>body){
+        try{
+            userService.followTopic(id, body.get("topicName"));
+            return new ResponseEntity<>(body, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            if(e.getMessage().equals("User not found!")){
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/api/news")
